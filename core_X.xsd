@@ -29,6 +29,12 @@
 </complexContent>
 </complexType>
 <complexType name="BaseRef" abstract="true">
+<sequence>
+<element name="name" type="xsd:string" minOccurs="0"/>
+<!--  record name  -->
+</sequence>
+</complexType>
+<element name="baseRef" type="platformCore:BaseRef"/>
 <complexType name="TokenPassportSignature">
 <simpleContent>
 <extension base="xsd:string">
@@ -117,7 +123,7 @@
 <element name="searchValue" type="xsd:string" minOccurs="0"/>
 </sequence>
 <attribute name="operator" type="platformCoreTyp:SearchStringFieldOperator"/>
-</complexType
+</complexType>
 <!--  SearchDateField  -->
 <complexType name="SearchDateField">
 <sequence>
@@ -252,4 +258,4 @@
 </complexContent>
 </complexType>
 <element name="searchRowBasic" type="platformCore:SearchRowBasic"/>
-<schema>
+</schema>
