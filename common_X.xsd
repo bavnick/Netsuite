@@ -1,0 +1,1692 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:platformCore="urn:core_2018_2.platform.webservices.netsuite.com" xmlns:platformCommonTyp="urn:types.common_2018_2.platform.webservices.netsuite.com" xmlns:platformCommon="urn:common_2018_2.platform.webservices.netsuite.com" targetNamespace="urn:common_2018_2.platform.webservices.netsuite.com" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xsd:import namespace="urn:core_2018_2.platform.webservices.netsuite.com" schemaLocation="https://raw.githubusercontent.com/bavnick/Netsuite/Netsuite_Add/core_X.xsd"/>
+<xsd:import namespace="urn:types.common_2018_2.platform.webservices.netsuite.com" schemaLocation="https://raw.githubusercontent.com/bavnick/Netsuite/Netsuite_Add/commonTypes_X.xsd"/>
+<!--  Address/start  -->
+<complexType name="Address">
+<complexContent>
+<extension base="platformCore:Record">
+<sequence>
+<element name="internalId" type="xsd:string" minOccurs="0"/>
+<element name="country" type="platformCommonTyp:Country" minOccurs="0"/>
+<element name="attention" type="xsd:string" minOccurs="0"/>
+<element name="addressee" type="xsd:string" minOccurs="0"/>
+<element name="addrPhone" type="xsd:string" minOccurs="0"/>
+<element name="addr1" type="xsd:string" minOccurs="0"/>
+<element name="addr2" type="xsd:string" minOccurs="0"/>
+<element name="addr3" type="xsd:string" minOccurs="0"/>
+<element name="city" type="xsd:string" minOccurs="0"/>
+<element name="state" type="xsd:string" minOccurs="0"/>
+<element name="zip" type="xsd:string" minOccurs="0"/>
+<element name="addrText" type="xsd:string" minOccurs="0"/>
+<element name="override" type="xsd:boolean" minOccurs="0"/>
+<element name="customFieldList" type="platformCore:CustomFieldList" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<!--  LandedCost/start  -->
+<!--
+ Subrecord introduced in 2013.2 for Landed Cost per Line 
+-->
+<complexType name="LandedCost">
+<complexContent>
+<extension base="platformCore:Record">
+<sequence>
+<element name="landedCostDataList" type="platformCommon:LandedCostDataList" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<complexType name="LandedCostDataList">
+<sequence>
+<element name="landedCostData" type="platformCommon:LandedCostData" minOccurs="0" maxOccurs="unbounded"/>
+</sequence>
+<attribute name="replaceAll" type="xsd:boolean" default="false"/>
+</complexType>
+<complexType name="LandedCostData">
+<sequence>
+<element name="costCategory" type="platformCore:RecordRef" minOccurs="0"/>
+<element name="amount" type="xsd:double" minOccurs="0"/>
+</sequence>
+</complexType>
+<!--
+ "Summary" Landed Cost since 2013.2 - LandedCost sublist line renamed to LandedCostSummary 
+-->
+<complexType name="LandedCostSummary">
+<sequence>
+<element name="category" type="platformCore:RecordRef" minOccurs="0"/>
+<element name="amount" type="xsd:double" minOccurs="0"/>
+<element name="source" type="platformCommonTyp:LandedCostSource" minOccurs="0"/>
+<element name="transaction" type="platformCore:RecordRef" minOccurs="0"/>
+</sequence>
+</complexType>
+<complexType name="AccountingBookDetail">
+<sequence>
+<element name="accountingBook" type="platformCore:RecordRef" minOccurs="0"/>
+<element name="currency" type="platformCore:RecordRef" minOccurs="0"/>
+<element name="exchangeRate" type="xsd:double" minOccurs="0"/>
+</sequence>
+</complexType>
+<complexType name="AccountingBookDetailList">
+<sequence>
+<element name="accountingBookDetail" type="platformCommon:AccountingBookDetail" minOccurs="0" maxOccurs="unbounded"/>
+</sequence>
+<attribute name="replaceAll" type="xsd:boolean" default="true"/>
+</complexType>
+<complexType name="TaxDetails">
+<sequence>
+<element name="taxDetailsReference" type="xsd:string" minOccurs="0"/>
+<element name="lineType" type="xsd:string" minOccurs="0"/>
+<element name="lineName" type="xsd:string" minOccurs="0"/>
+<element name="netAmount" type="xsd:double" minOccurs="0"/>
+<element name="grossAmount" type="xsd:double" minOccurs="0"/>
+<element name="taxType" type="platformCore:RecordRef" minOccurs="0"/>
+<element name="taxCode" type="platformCore:RecordRef" minOccurs="0"/>
+<element name="taxBasis" type="xsd:double" minOccurs="0"/>
+<element name="taxRate" type="xsd:double" minOccurs="0"/>
+<element name="taxAmount" type="xsd:double" minOccurs="0"/>
+<element name="calcDetail" type="xsd:string" minOccurs="0"/>
+</sequence>
+</complexType>
+<complexType name="TaxDetailsList">
+<sequence>
+<element name="taxDetails" type="platformCommon:TaxDetails" minOccurs="0" maxOccurs="unbounded"/>
+</sequence>
+<attribute name="replaceAll" type="xsd:boolean" default="true"/>
+</complexType>
+<!--  InventoryDetail/start  -->
+<complexType name="InventoryDetail">
+<complexContent>
+<extension base="platformCore:Record">
+<sequence>
+<element name="inventoryAssignmentList" type="platformCommon:InventoryAssignmentList" minOccurs="0"/>
+<element name="customForm" type="platformCore:RecordRef" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<complexType name="InventoryAssignmentList">
+<sequence>
+<element name="inventoryAssignment" type="platformCommon:InventoryAssignment" minOccurs="0" maxOccurs="unbounded"/>
+</sequence>
+<attribute name="replaceAll" type="xsd:boolean" default="false"/>
+</complexType>
+<complexType name="InventoryAssignment">
+<sequence>
+<element name="internalId" type="xsd:string" minOccurs="0"/>
+<element name="issueInventoryNumber" type="platformCore:RecordRef" minOccurs="0"/>
+<element name="receiptInventoryNumber" type="xsd:string" minOccurs="0"/>
+<element name="binNumber" type="platformCore:RecordRef" minOccurs="0"/>
+<element name="toBinNumber" type="platformCore:RecordRef" minOccurs="0"/>
+<element name="quantity" type="xsd:double" minOccurs="0"/>
+<element name="expirationDate" type="xsd:dateTime" minOccurs="0"/>
+<element name="quantityAvailable" type="xsd:double" minOccurs="0"/>
+</sequence>
+</complexType>
+<!--  item/start  -->
+<complexType name="ItemSearchBasic">
+<complexContent>
+<extension base="platformCore:SearchRecordBasic">
+<sequence>
+<element name="accBookRevRecForecastRule" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="account" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="accountingBook" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="accountingBookAmortization" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="accountingBookCreatePlansOn" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="accountingBookRevRecRule" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="accountingBookRevRecSchedule" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="allowedShippingMethod" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="alternateDemandSourceItem" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="atpLeadTime" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="atpMethod" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="autoLeadTime" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="autoPreferredStockLevel" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="autoReorderPoint" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="availableToPartners" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="averageCost" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="backwardConsumptionDays" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="binNumber" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="binOnHandAvail" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="binOnHandCount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="bomQuantity" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="buildEntireAssembly" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="buildTime" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="buyItNowPrice" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="caption" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="category" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="class" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="component" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="componentOf" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="componentYield" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="contingentRevenueHandling" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="copyDescription" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="correlatedItem" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="correlatedItemCorrelation" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="correlatedItemCount" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="correlatedItemLift" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="correlatedItemPurchaseRate" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="cost" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="costAccountingStatus" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="costCategory" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="costEstimate" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="costEstimateType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="costingMethod" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="countryOfManufacture" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="created" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="createJob" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="createRevenuePlansOn" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="dateViewed" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="daysBeforeExpiration" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="defaultReturnCost" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="defaultShippingMethod" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="deferRevRec" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="demandModifier" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="demandSource" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="demandTimeFence" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="department" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="directRevenuePosting" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="displayIneBayStore" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="displayName" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="distributionCategory" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="distributionNetwork" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="dontShowPrice" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="eBayItemDescription" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="eBayItemSubtitle" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="eBayItemTitle" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="ebayRelistingOption" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="effectiveBomControl" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="effectiveDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="effectiveRevision" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="endAuctionsWhenOutOfStock" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="excludeFromSitemap" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="externalId" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="externalIdString" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="featuredDescription" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="feedDescription" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="feedName" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="fixedLotSize" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="forwardConsumptionDays" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="fraudRisk" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="froogleProductFeed" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="fxCost" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="generateAccruals" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="giftCertAuthCode" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="giftCertEmail" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="giftCertExpDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="giftCertFrom" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="giftCertMsg" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="giftCertOrigAmt" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="giftCertRecipient" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="hierarchyNode" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="hierarchyVersion" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="imageUrl" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="includeChildren" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="internalId" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="internalIdNumber" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="inventoryLocation" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="invtClassification" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="invtCountInterval" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="isAvailable" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isDropShipItem" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isFulfillable" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isGcoCompliant" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isInactive" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isLotItem" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isOnline" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isPreferredVendor" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isSerialItem" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isSpecialOrderItem" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isSpecialWorkOrderItem" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isStorePickupAllowed" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="issueProduct" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="isTaxable" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isVsoeBundle" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isWip" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="itemId" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="itemRevenueCategory" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="itemUrl" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="lastInvtCountDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="lastModifiedDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="lastPurchasePrice" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="lastQuantityAvailableChange" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="leadTime" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="listingDuration" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="location" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="locationAllowStorePickup" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="locationAtpLeadTime" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationAverageCost" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationBuildTime" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationCost" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationCostAccountingStatus" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="locationDefaultReturnCost" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationDemandSource" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="locationDemandTimeFence" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="locationFixedLotSize" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationInventoryCostTemplate" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="locationInvtClassification" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="locationInvtCountInterval" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="locationLastInvtCountDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="locationLeadTime" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="locationNextInvtCountDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="locationPeriodicLotSizeDays" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="locationPeriodicLotSizeType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="locationPreferredStockLevel" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationQtyAvailForStorePickup" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationQuantityAvailable" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationQuantityBackOrdered" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationQuantityCommitted" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationQuantityInTransit" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationQuantityOnHand" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationQuantityOnOrder" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationReorderPoint" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationRescheduleInDays" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="locationRescheduleOutDays" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="locationSafetyStockLevel" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationStorePickupBufferStock" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locationSupplyLotSizingMethod" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="locationSupplyTimeFence" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="locationSupplyType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="locationTotalValue" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="locBackwardConsumptionDays" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="locForwardConsumptionDays" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="manufacturer" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="manufactureraddr1" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="manufacturerCity" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="manufacturerState" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="manufacturerTariff" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="manufacturerTaxId" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="manufacturerZip" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="manufacturingChargeItem" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="matchBillToReceipt" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="matrix" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="matrixChild" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="maximumQuantity" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="metaTagHtml" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="minimumQuantity" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="mossApplies" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="mpn" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="multManufactureAddr" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="nexTagCategory" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="nexTagProductFeed" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="nextInvtCountDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="numActiveListings" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="numberAllowedDownloads" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="numCurrentlyListed" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="obsoleteDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="obsoleteRevision" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="offerSupport" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="onlineCustomerPrice" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="onSpecial" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="otherVendor" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="outOfStockBehavior" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="overallQuantityPricingType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="overheadType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="pageTitle" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="parent" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="periodicLotSizeDays" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="periodicLotSizeType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="preferenceCriterion" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="preferredBin" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="preferredLocation" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="preferredStockLevel" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="preferredStockLevelDays" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="price" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="pricesIncludeTax" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="pricingGroup" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="primaryCategory" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="purchaseOrderAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="purchaseOrderQuantity" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="purchaseOrderQuantityDiff" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="purchaseUnit" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="quantityAvailable" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="quantityBackOrdered" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="quantityCommitted" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="quantityOnHand" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="quantityOnOrder" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="quantityPricingSchedule" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="receiptAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="receiptQuantity" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="receiptQuantityDiff" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="reorderMultiple" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="reorderPoint" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="rescheduleInDays" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="rescheduleOutDays" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="reservePrice" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="revenueAllocationGroup" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="revenueRecognitionRule" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="revRecForecastRule" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="revRecSchedule" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="roundUpAsComponent" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="safetyStockLevel" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="safetyStockLevelDays" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="salesDescription" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="saleUnit" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="sameAsPrimaryBookAmortization" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="sameAsPrimaryBookRevRec" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="scheduleBCode" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="scheduleBNumber" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="scheduleBQuantity" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="searchKeywords" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="seasonalDemand" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="sellOnEBay" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="serialNumber" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="serialNumberLocation" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="shipIndividually" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="shipPackage" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="shippingCarrier" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="shippingRate" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="shoppingDotComCategory" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="shoppingProductFeed" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="shopzillaCategoryId" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="shopzillaProductFeed" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="sitemapPriority" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="softDescriptor" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="startingPrice" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="stockDescription" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="stockUnit" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="storeDescription" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="subsidiary" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="subType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="supplyLotSizingMethod" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="supplyReplenishmentMethod" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="supplyTimeFence" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="supplyType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="taxCode" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="taxSchedule" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="thumbnailUrl" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="totalValue" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="trackLandedCost" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="transferPrice" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="type" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="unitsType" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="upcCode" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="urlComponent" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="useBins" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="useComponentYield" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="useMarginalRates" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="vendor" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="vendorCode" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="vendorCost" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="vendorCostEntered" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="vendorName" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="vendorPriceCurrency" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="vsoeDeferral" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="vsoeDelivered" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="vsoePermitDiscount" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="vsoePrice" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="vsoeSopGroup" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="webSite" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="weight" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="yahooProductFeed" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="customFieldList" type="platformCore:SearchCustomFieldList" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<complexType name="ItemSearchRowBasic">
+<complexContent>
+<extension base="platformCore:SearchRowBasic">
+<sequence>
+<element name="accBookRevRecForecastRule" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="accountingBook" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="accountingBookAmortization" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="accountingBookCreatePlansOn" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="accountingBookRevRecRule" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="accountingBookRevRecSchedule" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="allowedShippingMethod" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="alternateDemandSourceItem" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="assetAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="atpLeadTime" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="atpMethod" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="autoLeadTime" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="autoPreferredStockLevel" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="autoReorderPoint" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="availableToPartners" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="averageCost" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="backwardConsumptionDays" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="basePrice" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billExchRateVarianceAcct" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billPriceVarianceAcct" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billQtyVarianceAcct" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="binNumber" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="binOnHandAvail" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="binOnHandCount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="bomQuantity" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="buildEntireAssembly" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="buildTime" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="buyItNowPrice" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="category" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="categoryPreferred" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="class" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="componentYield" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="contingentRevenueHandling" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="copyDescription" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="correlatedItem" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="correlatedItemCorrelation" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="correlatedItemCount" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="correlatedItemLift" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="correlatedItemPurchaseRate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="cost" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="costAccountingStatus" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="costCategory" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="costEstimate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="costEstimateType" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="costingMethod" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="countryOfManufacture" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="created" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="createJob" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="createRevenuePlansOn" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="custReturnVarianceAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="dateViewed" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="daysBeforeExpiration" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="defaultReturnCost" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="defaultShippingMethod" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="deferredExpenseAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="deferredRevenueAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="deferRevRec" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="demandModifier" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="demandSource" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="demandTimeFence" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="department" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="departmentnohierarchy" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="directRevenuePosting" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="displayIneBayStore" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="displayName" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="distributionCategory" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="distributionNetwork" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="dontShowPrice" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="eBayItemDescription" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="eBayItemSubtitle" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="eBayItemTitle" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="ebayRelistingOption" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="effectiveBomControl" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="effectiveDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="effectiveRevision" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="endAuctionsWhenOutOfStock" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="excludeFromSitemap" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="expenseAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="externalId" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="featuredDescription" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="feedDescription" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="feedName" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fixedLotSize" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="forwardConsumptionDays" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fraudRisk" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="froogleProductFeed" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fxCost" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gainLossAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="generateAccruals" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="giftCertAuthCode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="giftCertEmail" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="giftCertExpirationDate" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="giftCertFrom" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="giftCertMessage" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="giftCertOriginalAmount" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="giftCertRecipient" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="hierarchyNode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="hierarchyVersion" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="hits" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="imageUrl" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="includeChildren" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="incomeAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="intercoDefRevAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="intercoExpenseAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="intercoIncomeAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="internalId" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="inventoryLocation" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="invtClassification" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="invtCountInterval" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isAvailable" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isDropShipItem" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isFulfillable" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isGcoCompliant" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isInactive" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isLotItem" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isOnline" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isSerialItem" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isSpecialOrderItem" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isSpecialWorkOrderItem" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isStorePickupAllowed" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="issueProduct" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isTaxable" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isVsoeBundle" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isWip" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="itemId" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="itemRevenueCategory" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="itemUrl" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="lastInvtCountDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="lastPurchasePrice" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="lastQuantityAvailableChange" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="leadTime" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="liabilityAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="listingDuration" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="location" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationAllowStorePickup" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationAtpLeadTime" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationAverageCost" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationBinQuantityAvailable" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationBuildTime" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationCost" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationCostAccountingStatus" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationDefaultReturnCost" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationDemandSource" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationDemandTimeFence" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationFixedLotSize" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationInventoryCostTemplate" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationInvtClassification" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationInvtCountInterval" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationLastInvtCountDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationLeadTime" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationNextInvtCountDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationPeriodicLotSizeDays" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationPeriodicLotSizeType" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationPreferredStockLevel" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationQtyAvailForStorePickup" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationQuantityAvailable" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationQuantityBackOrdered" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationQuantityCommitted" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationQuantityInTransit" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationQuantityOnHand" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationQuantityOnOrder" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationReOrderPoint" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationRescheduleInDays" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationRescheduleOutDays" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationSafetyStockLevel" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationStorePickupBufferStock" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationSupplyLotSizingMethod" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationSupplyTimeFence" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationSupplyType" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationTotalValue" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locBackwardConsumptionDays" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locForwardConsumptionDays" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="manufacturer" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="manufacturerAddr1" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="manufacturerCity" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="manufacturerState" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="manufacturerTariff" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="manufacturerTaxId" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="manufacturerZip" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="manufacturingChargeItem" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="matchBillToReceipt" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="maximumQuantity" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="memberItem" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="memberQuantity" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="metaTagHtml" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="minimumQuantity" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="modified" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="mossApplies" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="mpn" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="multManufactureAddr" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="nextagCategory" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="nextagProductFeed" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="nextInvtCountDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="noPriceMessage" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="numActiveListings" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="numberAllowedDownloads" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="numCurrentlyListed" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="obsoleteDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="obsoleteRevision" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="offerSupport" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="onlineCustomerPrice" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="onlinePrice" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="onSpecial" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="otherPrices" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="otherVendor" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="outOfStockBehavior" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="outOfStockMessage" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="overallQuantityPricingType" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="overheadType" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="pageTitle" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="parent" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="periodicLotSizeDays" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="periodicLotSizeType" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="preferenceCriterion" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="preferredBin" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="preferredLocation" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="preferredStockLevel" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="preferredStockLevelDays" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="pricesIncludeTax" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="pricingGroup" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="primaryCategory" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="prodPriceVarianceAcct" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="prodQtyVarianceAcct" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="purchaseDescription" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="purchaseOrderAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="purchaseOrderQuantity" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="purchaseOrderQuantityDiff" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="purchasePriceVarianceAcct" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="purchaseUnit" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantityAvailable" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantityBackOrdered" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantityCommitted" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantityOnHand" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantityOnOrder" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantityPricingSchedule" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="receiptAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="receiptQuantity" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="receiptQuantityDiff" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="reorderMultiple" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="reOrderPoint" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="rescheduleInDays" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="rescheduleOutDays" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="reservePrice" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="revenueAllocationGroup" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="revenueRecognitionRule" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="revRecForecastRule" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="revReclassFXAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="revRecSchedule" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="roundUpAsComponent" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="safetyStockLevel" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="safetyStockLevelDays" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="salesDescription" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="salesTaxCode" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="saleUnit" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="sameAsPrimaryBookAmortization" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="sameAsPrimaryBookRevRec" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="scheduleBCode" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="scheduleBNumber" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="scheduleBQuantity" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="scrapAcct" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="searchKeywords" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="seasonalDemand" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="sellOnEBay" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="serialNumber" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="serialNumberLocation" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipIndividually" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipPackage" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shippingCarrier" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shippingRate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shoppingDotComCategory" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shoppingProductFeed" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shopzillaCategoryId" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shopzillaProductFeed" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="sitemapPriority" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="softDescriptor" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="startingPrice" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="stockDescription" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="stockUnit" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="storeDescription" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="storeDetailedDescription" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="storeDisplayImage" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="storeDisplayName" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="storeDisplayThumbnail" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="subsidiary" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="subType" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="supplyLotSizingMethod" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="supplyReplenishmentMethod" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="supplyTimeFence" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="supplyType" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="taxSchedule" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="thumbNailUrl" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="totalValue" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="trackLandedCost" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="transferPrice" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="type" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="unbuildVarianceAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="unitsType" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="upcCode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="urlComponent" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="useBins" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="useComponentYield" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="useMarginalRates" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vendor" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vendorCode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vendorCost" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vendorCostEntered" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vendorName" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vendorPriceCurrency" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vendorSchedule" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vendReturnVarianceAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vsoeDeferral" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vsoeDelivered" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vsoePermitDiscount" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vsoePrice" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vsoeSopGroup" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="webSite" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="weight" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="weightUnit" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="wipAcct" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="wipVarianceAcct" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="yahooProductFeed" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="customFieldList" type="platformCore:SearchColumnCustomFieldList" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<!--  item/end  -->
+<!--  transaction/start  -->
+<complexType name="TransactionSearchBasic">
+<complexContent>
+<extension base="platformCore:SearchRecordBasic">
+<sequence>
+<element name="account" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="accountType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="acctCorpCardExp" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="actualShipDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="altSalesAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="altSalesNetAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="amount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="amountPaid" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="amountRemaining" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="amountUnbilled" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="anyLineItem" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="appliedToForeignAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="appliedToIsFxVariance" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="appliedToLinkAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="appliedToLinkType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="appliedToTransaction" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="applyingForeignAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="applyingIsFxVariance" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="applyingLinkAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="applyingLinkType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="applyingTransaction" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="approvalStatus" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="authCode" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="autoCalculateLag" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="avsStreetMatch" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="avsZipMatch" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="billable" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="billAddress" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="billAddressee" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="billAttention" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="billCity" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="billCountry" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="billCounty" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="billedDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="billingAccount" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="billingSchedule" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="billingStatus" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="billingTransaction" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="billPhone" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="billState" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="billVarianceStatus" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="billZip" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="binNumber" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="binNumberQuantity" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="bomQuantity" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="bookSpecificTransaction" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="buildEntireAssembly" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="buildVariance" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="built" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="canHaveStackablePromotions" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="catchUpPeriod" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="ccCustomerCode" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="ccExpireDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="ccName" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="ccNumber" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="chargeType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="class" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="cleared" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="closed" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="closeDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="cogs" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="commissionEffectiveDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="commit" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="componentYield" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="confirmationNumber" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="contribution" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="costComponentAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="costComponentCategory" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="costComponentItem" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="costComponentQuantity" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="costComponentStandardCost" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="costEstimate" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="costEstimateRate" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="costEstimateType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="createdBy" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="createdFrom" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="creditAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="cscMatch" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="currency" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="customerSubOf" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="customForm" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="customGL" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="custType" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="dateCreated" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="daysOpen" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="daysOverdue" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="debitAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="deferredRevenue" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="deferRevRec" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="department" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="depositDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="depositTransaction" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="drAccount" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="dueDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="email" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="employee" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="endDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="entity" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="entityStatus" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="estGrossProfit" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="estGrossProfitPct" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="exchangeRate" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="excludeCommission" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="excludeFromRateRequest" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="expectedCloseDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="expectedReceiptDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="expenseCategory" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="expenseDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="externalId" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="externalIdString" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="finChrg" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="firmed" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="forecastType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="fulfillingTransaction" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="fxAccount" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="fxAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="fxCostEstimate" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="fxCostEstimateRate" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="fxEstGrossProfit" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="fxTranCostEstimate" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="fxVsoeAllocation" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="fxVsoeAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="fxVsoePrice" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="gcoAvailabelToCharge" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="gcoAvailableToRefund" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="gcoAvsStreetMatch" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="gcoAvsZipMatch" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="gcoBuyerAccountAge" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="gcoBuyerIp" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="gcoChargeAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="gcoChargebackAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="gcoConfirmedChargedTotal" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="gcoConfirmedRefundedTotal" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="gcoCreditcardNumber" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="gcoCscMatch" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="gcoFinancialState" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="gcoFulfillmentState" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="gcoOrderId" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="gcoOrderTotal" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="gcoPromotionAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="gcoPromotionName" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="gcoRefundAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="gcoShippingTotal" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="gcoStateChangedDetail" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="giftCertificate" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="grossAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="includeInForecast" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="incoterm" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="intercoStatus" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="intercoTransaction" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="internalId" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="internalIdNumber" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="inventoryLocation" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="inventorySubsidiary" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="inVsoeBundle" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isAllocation" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isBackflush" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isGcoChargeback" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isGcoChargeConfirmed" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isGcoPaymentGuaranteed" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isGcoRefundConfirmed" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isInsideDelivery" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isInsidePickup" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isIntercompanyAdjustment" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isInTransitPayment" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isMultiShipTo" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isPayPalMeth" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isReversal" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isRevRecTransaction" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isScrap" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isShipAddress" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isTransferPriceCosting" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isVsoeAlloc" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isWip" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="item" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="itemFulfillmentChoice" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="itemRevision" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="itemSubOf" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="landedCostPerLine" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="lastModifiedDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="leadSource" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="lineUniqueKey" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="location" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="locationAutoAssigned" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="mainLine" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="mainName" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="manufacturingRouting" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="matchBillToReceipt" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="memo" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="memoMain" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="memorized" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="merchantAccount" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="message" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="multiSubsidiary" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="nameText" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="netAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="nextApprover" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="nextBillDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="noAutoAssignLocation" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="nonReimbursable" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="number" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="oneTimeTotal" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="opportunity" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="orderPriority" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="otherRefNum" type="platformCore:SearchTextNumberField" minOccurs="0"/>
+<element name="otherRefNumNonDeposit" type="platformCore:SearchTextNumberField" minOccurs="0"/>
+<element name="overheadParentItem" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="packageCount" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="paidTransaction" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="parent" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="partner" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="partnerContribution" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="partnerRole" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="partnerTeamMember" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="payingTransaction" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="paymentApproved" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="paymentEventDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="paymentEventHoldReason" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="paymentEventPurchaseCardUsed" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="paymentEventPurchaseDataSent" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="paymentEventResult" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="paymentEventType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="paymentHold" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="paymentMethod" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="payPalPending" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="payPalStatus" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="payPalTranId" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="pnRefNum" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="poAsText" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="posting" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="postingPeriod" type="platformCore:RecordRef" minOccurs="0"/>
+<element name="postingPeriodRelative" type="platformCommonTyp:PostingPeriodDate" minOccurs="0"/>
+<element name="priceLevel" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="printedPickingTicket" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="probability" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="projectedAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="projectTask" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="promoCode" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="purchaseOrder" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="quantity" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="quantityBilled" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="quantityCommitted" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="quantityPacked" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="quantityPicked" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="quantityRevCommitted" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="quantityShipRecv" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="recognizedRevenue" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="recordType" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="recurAnnuallyTotal" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="recurMonthlyTotal" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="recurQuarterlyTotal" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="recurringBill" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="recurWeeklyTotal" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="refNumber" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="revCommitStatus" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="revCommittingStatus" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="revCommittingTransaction" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="revenueStatus" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="reversalDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="reversalNumber" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="revRecEndDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="revRecOnRevCommitment" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="revRecStartDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="revRecTermInMonths" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="salesEffectiveDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="salesOrder" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="salesRep" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="salesTeamMember" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="salesTeamRole" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="schedulingMethod" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="serialNumber" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="serialNumberCost" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="serialNumberCostAdjustment" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="serialNumberQuantity" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="serialNumbers" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="shipAddress" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="shipAddressee" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="shipAttention" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="shipCarrier" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="shipCity" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="shipComplete" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="shipCountry" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="shipCounty" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="shipDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="shipGroup" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="shipMethod" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="shipPhone" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="shipping" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="shipRecvStatus" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="shipRecvStatusLine" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="shipState" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="shipTo" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="shipZip" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="source" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="startDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="statistical" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="status" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="subscription" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="subscriptionLine" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="subsidiary" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="taxItem" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="taxLine" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="taxPeriod" type="platformCore:RecordRef" minOccurs="0"/>
+<element name="taxPeriodRelative" type="platformCommonTyp:PostingPeriodDate" minOccurs="0"/>
+<element name="taxRate" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="terms" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="termsOfSale" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="title" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="toBeEmailed" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="toBePrinted" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="toSubsidiary" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="totalAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="trackingNumbers" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="tranCostEstimate" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="tranDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="tranEstGrossProfit" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="tranEstGrossProfitPct" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="tranFxEstGrossProfit" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="tranId" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="tranIsVsoeBundle" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="transactionDiscount" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="transactionLineType" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="transactionNumber" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="transferLocation" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="transferOrderQuantityCommitted" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="transferOrderQuantityPacked" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="transferOrderQuantityPicked" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="transferOrderQuantityReceived" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="transferOrderQuantityShipped" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="type" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="unit" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="unitCostOverride" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="unitsType" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="vendType" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="visibleToCustomer" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="voided" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="vsoeAllocation" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="vsoeAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="vsoeDeferral" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="vsoeDelivered" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="vsoePermitDiscount" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="vsoePrice" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="webSite" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="customFieldList" type="platformCore:SearchCustomFieldList" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<complexType name="TransactionSearchRowBasic">
+<complexContent>
+<extension base="platformCore:SearchRowBasic">
+<sequence>
+<element name="abbrev" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="account" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="accountType" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="acctCorpCardExp" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="actualShipDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="altSalesAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="altSalesNetAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="amount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="amountPaid" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="amountRemaining" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="amountUnbilled" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="appliedToForeignAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="appliedToIsFxVariance" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="appliedToLinkAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="appliedToLinkType" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="appliedToTransaction" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="applyingForeignAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="applyingIsFxVariance" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="applyingLinkAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="applyingLinkType" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="applyingTransaction" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="approvalStatus" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="authCode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="autoCalculateLag" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="avsStreetMatch" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="avsZipMatch" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billable" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billAddress" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billAddress1" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billAddress2" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billAddress3" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billAddressee" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billAttention" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billCity" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billCountry" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billCountryCode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billedDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billingAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billingAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billingSchedule" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billingTransaction" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billPhone" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billState" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billVarianceStatus" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billZip" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="binNumber" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="binNumberQuantity" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="bomQuantity" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="buildEntireAssembly" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="buildVariance" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="built" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="canHaveStackablePromotions" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="catchUpPeriod" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="ccCustomerCode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="ccExpDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="ccHolderName" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="ccNumber" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="ccStreet" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="ccZipCode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="class" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="cleared" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="closed" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="closeDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="cogsAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="commissionEffectiveDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="commit" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="componentYield" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="confirmationNumber" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="contribution" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="contributionPrimary" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="costComponentAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="costComponentCategory" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="costComponentItem" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="costComponentQuantity" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="costComponentStandardCost" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="costEstimate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="costEstimateRate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="costEstimateType" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="createdBy" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="createdFrom" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="creditAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="cscMatch" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="currency" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="customForm" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="customGL" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="custType" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="dateCreated" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="daysOpen" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="daysOverdue" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="debitAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="deferredRevenue" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="deferRevRec" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="department" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="depositDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="depositTransaction" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="discountAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="docUnit" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="drAccount" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="dueDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="effectiveRate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="email" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="endDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="entity" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="entityStatus" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="estGrossProfit" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="estGrossProfitPct" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="estGrossProfitPercent" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="exchangeRate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="excludeCommission" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="excludeFromRateRequest" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="expectedCloseDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="expectedReceiptDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="expenseCategory" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="expenseDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="externalId" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="firmed" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="forecastType" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fulfillingTransaction" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fxAccount" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fxAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fxCostEstimate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fxCostEstimateRate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fxEstGrossProfit" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fxTranCostEstimate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fxVsoeAllocation" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fxVsoeAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fxVsoePrice" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoAvailabelToCharge" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoAvailableToRefund" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoAvsStreetMatch" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoAvsZipMatch" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoBuyerAccountAge" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoBuyerIp" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoChargeAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoChargebackAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoConfirmedChargedTotal" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoConfirmedRefundedTotal" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoCreditcardNumber" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoCscMatch" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoFinancialState" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoFulfillmentState" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoOrderId" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoOrderTotal" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoPromotionAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoPromotionName" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoRefundAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoShippingTotal" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="gcoStateChangedDetail" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="giftCert" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="grossAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="includeInForecast" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="incoterm" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="intercoStatus" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="intercoTransaction" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="internalId" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="inventoryLocation" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="inventorySubsidiary" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="inVsoeBundle" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isAllocation" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isBackflush" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isGcoChargeback" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isGcoChargeConfirmed" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isGcoPaymentGuaranteed" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isGcoRefundConfirmed" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isInsideDelivery" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isInsidePickup" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isIntercompanyAdjustment" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isInTransitPayment" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isMultiShipTo" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isReversal" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isRevRecTransaction" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isScrap" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isShipAddress" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isTransferPriceCosting" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isWip" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="item" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="itemFulfillmentChoice" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="itemRevision" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="landedCostPerLine" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="lastModifiedDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="leadSource" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="line" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="lineSequenceNumber" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="lineUniqueKey" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="location" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="locationAutoAssigned" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="mainLine" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="mainName" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="manufacturingRouting" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="matchBillToReceipt" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="memo" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="memoMain" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="memorized" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="merchantAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="message" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="multiSubsidiary" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="netAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="netAmountNoTax" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="nextApprover" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="nextBillDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="noAutoAssignLocation" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="nonReimbursable" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="oneTimeTotal" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="opportunity" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="options" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="orderPriority" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="originator" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="otherRefNum" type="platformCore:SearchColumnTextNumberField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="overheadParentItem" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="packageCount" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="paidAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="paidTransaction" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="partner" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="partnerContribution" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="partnerRole" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="partnerTeamMember" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="payingAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="payingTransaction" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="paymentApproved" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="paymentEventDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="paymentEventHoldReason" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="paymentEventPurchaseCardUsed" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="paymentEventPurchaseDataSent" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="paymentEventResult" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="paymentEventType" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="paymentHold" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="paymentMethod" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="payPalPending" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="payPalStatus" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="payPalTranId" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="payrollBatch" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="pnRefNum" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="poRate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="posting" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="postingPeriod" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="priceLevel" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="print" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="probability" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="projectedAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="projectTask" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="promoCode" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="purchaseOrder" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantity" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantityBilled" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantityCommitted" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantityPacked" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantityPicked" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantityRevCommitted" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantityShipRecv" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="quantityUom" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="rate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="realizedGainPostingTransaction" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="recognizedRevenue" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="recordType" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="recurAnnuallyTotal" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="recurMonthlyTotal" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="recurQuarterlyTotal" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="recurringBill" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="recurWeeklyTotal" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="refNumber" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="revCommitStatus" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="revCommittingTransaction" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="revenueStatus" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="reversalDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="reversalNumber" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="revRecEndDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="revRecOnRevCommitment" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="revRecStartDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="rgAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="rgAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="salesEffectiveDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="salesOrder" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="salesRep" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="salesTeamMember" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="salesTeamRole" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="schedulingMethod" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="serialNumber" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="serialNumberCost" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="serialNumberCostAdjustment" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="serialNumberQuantity" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="serialNumbers" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipAddress" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipAddress1" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipAddress2" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipAddress3" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipAddressee" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipAttention" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipCarrier" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipCity" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipComplete" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipCountry" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipCountryCode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipGroup" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipMethod" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipPhone" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shippingAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipRecvStatusLine" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipState" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipTo" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipZip" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="signedAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="source" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="startDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="status" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="subscription" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="subscriptionLine" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="subsidiary" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="taxAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="taxCode" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="taxLine" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="taxPeriod" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="taxTotal" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="termInMonths" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="terms" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="termsOfSale" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="title" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="toBeEmailed" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="toBePrinted" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="toSubsidiary" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="total" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="totalCostEstimate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="trackingNumbers" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="tranDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="tranEstGrossProfit" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="tranFxEstGrossProfit" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="tranId" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="tranIsVsoeBundle" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="transactionDiscount" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="transactionLineType" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="transactionNumber" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="transferLocation" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="transferOrderItemLine" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="transferOrderQuantityCommitted" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="transferOrderQuantityPacked" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="transferOrderQuantityPicked" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="transferOrderQuantityReceived" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="transferOrderQuantityShipped" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="type" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="unit" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="unitCostOverride" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vendType" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="visibleToCustomer" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vsoeAllocation" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vsoeAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vsoeDeferral" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vsoeDelivered" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vsoePermitDiscount" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vsoePrice" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="webSite" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="customFieldList" type="platformCore:SearchColumnCustomFieldList" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<!--  transaction/end  -->
+<!--  vendor/start  -->
+<complexType name="VendorSearchBasic">
+<complexContent>
+<extension base="platformCore:SearchRecordBasic">
+<sequence>
+<element name="accountNumber" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="address" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="addressee" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="addressLabel" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="addressPhone" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="attention" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="balance" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="billAddress" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="category" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="city" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="comments" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="contact" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="country" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="county" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="creditLimit" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="currency" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="currentExchangeRate" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="dateCreated" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="defaultTaxReg" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="defaultTaxRegText" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="eligibleForCommission" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="email" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="emailPreference" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="emailTransactions" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="entityId" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="expenseAccount" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="externalId" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="externalIdString" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="fax" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="faxTransactions" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="firstName" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="fxBalance" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="fxUnbilledOrders" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="giveAccess" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="globalSubscriptionStatus" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="group" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="hasDuplicates" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="image" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="incoterm" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="internalId" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="internalIdNumber" type="platformCore:SearchLongField" minOccurs="0"/>
+<element name="is1099Eligible" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isDefaultBilling" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isDefaultShipping" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isInactive" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isJobResourceVend" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="isPerson" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="laborCost" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="language" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="lastModifiedDate" type="platformCore:SearchDateField" minOccurs="0"/>
+<element name="lastName" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="level" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="middleName" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="otherRelationships" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="payablesAccount" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="pec" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="permission" type="platformCore:SearchEnumMultiSelectField" minOccurs="0"/>
+<element name="phone" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="phoneticName" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="printTransactions" type="platformCore:SearchBooleanField" minOccurs="0"/>
+<element name="purchaseOrderAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="purchaseOrderQuantity" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="purchaseOrderQuantityDiff" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="receiptAmount" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="receiptQuantity" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="receiptQuantityDiff" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="salutation" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="shipAddress" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="state" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="subsidiary" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="taxIdNum" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="timeApprover" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="title" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="unbilledOrders" type="platformCore:SearchDoubleField" minOccurs="0"/>
+<element name="url" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="vatRegNumber" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="workCalendar" type="platformCore:SearchMultiSelectField" minOccurs="0"/>
+<element name="zipCode" type="platformCore:SearchStringField" minOccurs="0"/>
+<element name="customFieldList" type="platformCore:SearchCustomFieldList" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<complexType name="VendorSearchRowBasic">
+<complexContent>
+<extension base="platformCore:SearchRowBasic">
+<sequence>
+<element name="accountNumber" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="address" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="address1" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="address2" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="address3" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="addressee" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="addressInternalId" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="addressLabel" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="addressPhone" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="altContact" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="altEmail" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="altName" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="altPhone" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="attention" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="balance" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billAddress" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billAddress1" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billAddress2" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billAddress3" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billAddressee" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billAttention" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billCity" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billCountry" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billCountryCode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billPhone" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billState" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="billZipCode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="category" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="city" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="comments" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="companyName" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="contact" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="country" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="countryCode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="creditLimit" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="currency" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="currentExchangeRate" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="dateCreated" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="defaultTaxReg" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="eligibleForCommission" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="email" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="emailPreference" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="emailTransactions" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="entityId" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="entityNumber" type="platformCore:SearchColumnLongField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="expenseAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="externalId" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fax" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="faxTransactions" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="firstName" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fxBalance" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="fxUnbilledOrders" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="giveAccess" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="globalSubscriptionStatus" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="hasDuplicates" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="homePhone" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="image" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="incoterm" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="internalId" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="is1099Eligible" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isDefaultBilling" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isDefaultShipping" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isInactive" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isJobResourceVend" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="isPerson" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="laborCost" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="language" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="lastModifiedDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="lastName" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="level" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="middleName" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="mobilePhone" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="payablesAccount" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="pec" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="permission" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="phone" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="phoneticName" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="printOnCheckAs" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="printTransactions" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="purchaseOrderAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="purchaseOrderQuantity" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="purchaseOrderQuantityDiff" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="receiptAmount" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="receiptQuantity" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="receiptQuantityDiff" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="salutation" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipAddress" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipAddress1" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipAddress2" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipAddress3" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipAddressee" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipAttention" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipCity" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipCountry" type="platformCore:SearchColumnEnumSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipCountryCode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipPhone" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipState" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="shipZip" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="state" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="subscription" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="subscriptionDate" type="platformCore:SearchColumnDateField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="subscriptionStatus" type="platformCore:SearchColumnBooleanField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="subsidiary" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="taxIdNum" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="terms" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="timeApprover" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="title" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="unbilledOrders" type="platformCore:SearchColumnDoubleField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="url" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="vatRegNumber" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="workCalendar" type="platformCore:SearchColumnSelectField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="zipCode" type="platformCore:SearchColumnStringField" minOccurs="0" maxOccurs="unbounded"/>
+<element name="customFieldList" type="platformCore:SearchColumnCustomFieldList" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<!--  vendor/end  -->
+<complexType name="CustomSearchJoin">
+<sequence>
+<element name="customizationRef" type="platformCore:CustomizationRef"/>
+<element name="searchRecordBasic" type="platformCore:SearchRecordBasic"/>
+</sequence>
+</complexType>
+<complexType name="CustomSearchRowBasic">
+<sequence>
+<element name="customizationRef" type="platformCore:CustomizationRef"/>
+<element name="searchRowBasic" type="platformCore:SearchRowBasic"/>
+</sequence>
+</complexType>
+<schema>
