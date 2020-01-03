@@ -6,7 +6,7 @@
 		xmlns:platformFaultTyp="urn:types.faults_2018_2.platform.webservices.netsuite.com" 
 		targetNamespace="urn:core_2018_2.platform.webservices.netsuite.com" 
 		elementFormDefault="qualified" attributeFormDefault="unqualified">
-<import namespace="urn:types.core_2018_2.platform.webservices.netsuite.com" schemaLocation="https://webservices.na0.netsuite.com/xsd/platform/v2018_2_0/coreTypes.xsd"/>
+<import namespace="urn:types.core_2018_2.platform.webservices.netsuite.com" schemaLocation="https://raw.githubusercontent.com/bavnick/Netsuite/master/coreTypes_X.xsd"/>
 <import namespace="urn:types.faults_2018_2.platform.webservices.netsuite.com" schemaLocation="https://webservices.na0.netsuite.com/xsd/platform/v2018_2_0/faultTypes.xsd"/>
 <!--  Login Passport  -->
 <complexType name="Passport">
