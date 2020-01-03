@@ -1,0 +1,255 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+		xmlns:platformCore="urn:core_2018_2.platform.webservices.netsuite.com" 
+		xmlns:platformCoreTyp="urn:types.core_2018_2.platform.webservices.netsuite.com" 
+		xmlns:platformFaultTyp="urn:types.faults_2018_2.platform.webservices.netsuite.com" 
+		targetNamespace="urn:core_2018_2.platform.webservices.netsuite.com" 
+		elementFormDefault="qualified" attributeFormDefault="unqualified">
+<import namespace="urn:types.core_2018_2.platform.webservices.netsuite.com" schemaLocation="https://raw.githubusercontent.com/bavnick/Netsuite/Netsuite_Add/coreTypes_X.xsd"/>
+<import namespace="urn:types.faults_2018_2.platform.webservices.netsuite.com" schemaLocation="https://webservices.na0.netsuite.com/xsd/platform/v2018_2_0/faultTypes.xsd"/>
+<!--  Login Passport  -->
+<complexType name="Passport">
+<sequence>
+<element name="email" type="xsd:string"/>
+<element name="password" type="xsd:string"/>
+<element name="account" type="xsd:string"/>
+<element name="role" type="platformCore:RecordRef" minOccurs="0"/>
+</sequence>
+</complexType>
+<complexType name="RecordRef">
+<complexContent>
+<extension base="platformCore:BaseRef">
+<attribute name="internalId" type="xsd:string"/>
+<attribute name="externalId" type="xsd:string"/>
+<attribute name="type" type="platformCoreTyp:RecordType"/>
+<!--  primary record internalId  -->
+<!--  record type  -->
+</extension>
+</complexContent>
+</complexType>
+<complexType name="BaseRef" abstract="true">
+<complexType name="TokenPassportSignature">
+<simpleContent>
+<extension base="xsd:string">
+<attribute name="algorithm" type="xsd:string" use="required"/>
+</extension>
+</simpleContent>
+</complexType>
+<complexType name="TokenPassport">
+<sequence>
+<element name="account" type="xsd:string"/>
+<element name="consumerKey" type="xsd:string"/>
+<element name="token" type="xsd:string"/>
+<element name="nonce" type="xsd:string"/>
+<element name="timestamp" type="xsd:long"/>
+<element name="signature" type="platformCore:TokenPassportSignature"/>
+</sequence>
+</complexType>
+<complexType name="Record" abstract="true">
+<sequence>
+<element name="nullFieldList" type="platformCore:NullField" minOccurs="0" maxOccurs="1"/>
+</sequence>
+</complexType>
+<element name="record" type="platformCore:Record"/>
+<complexType name="NullField">
+<sequence>
+<element name="name" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+</sequence>
+</complexType>
+<complexType name="RecordRefList">
+<sequence>
+<element name="recordRef" type="platformCore:RecordRef" minOccurs="0" maxOccurs="unbounded"/>
+<!--  record refs  -->
+</sequence>
+</complexType>
+<element name="recordRefList" type="platformCore:RecordRefList"/>
+<complexType name="CustomFieldList">
+<sequence>
+<element name="customField" type="platformCore:CustomFieldRef" minOccurs="0" maxOccurs="unbounded"/>
+</sequence>
+</complexType>
+<complexType name="CustomFieldRef" abstract="true">
+<attribute name="internalId" type="xsd:string"/>
+<attribute name="scriptId" type="xsd:string"/>
+</complexType>
+<complexType name="SearchRecord" abstract="true"/>
+<element name="searchRecord" type="platformCore:SearchRecord"/>
+<complexType name="SearchRow" abstract="true"/>
+<!--  SearchMultiSelectListField  -->
+<complexType name="SearchMultiSelectField">
+<sequence>
+<element name="searchValue" type="platformCore:RecordRef" minOccurs="0" maxOccurs="unbounded"/>
+</sequence>
+<attribute name="operator" type="platformCoreTyp:SearchMultiSelectFieldOperator"/>
+</complexType>
+<!--  SearchDoubleField  -->
+<complexType name="SearchDoubleField">
+<sequence>
+<element name="searchValue" type="xsd:double" minOccurs="0"/>
+<element name="searchValue2" type="xsd:double" minOccurs="0"/>
+</sequence>
+<attribute name="operator" type="platformCoreTyp:SearchDoubleFieldOperator"/>
+</complexType>
+<complexType name="SearchEnumMultiSelectField">
+<sequence>
+<element name="searchValue" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+</sequence>
+<attribute name="operator" type="platformCoreTyp:SearchEnumMultiSelectFieldOperator"/>
+</complexType>
+<!--  SearchBooleanField  -->
+<complexType name="SearchBooleanField">
+<sequence>
+<element name="searchValue" type="xsd:boolean" minOccurs="0"/>
+</sequence>
+</complexType>
+<!--  SearchLongField  -->
+<complexType name="SearchLongField">
+<sequence>
+<element name="searchValue" type="xsd:long" minOccurs="0"/>
+<element name="searchValue2" type="xsd:long" minOccurs="0"/>
+</sequence>
+<attribute name="operator" type="platformCoreTyp:SearchLongFieldOperator"/>
+</complexType>
+<!--  SearchStringField  -->
+<complexType name="SearchStringField">
+<sequence>
+<element name="searchValue" type="xsd:string" minOccurs="0"/>
+</sequence>
+<attribute name="operator" type="platformCoreTyp:SearchStringFieldOperator"/>
+</complexType
+<!--  SearchDateField  -->
+<complexType name="SearchDateField">
+<sequence>
+<element name="predefinedSearchValue" type="platformCoreTyp:SearchDate" minOccurs="0"/>
+<element name="searchValue" type="xsd:dateTime" minOccurs="0"/>
+<element name="searchValue2" type="xsd:dateTime" minOccurs="0"/>
+</sequence>
+<attribute name="operator" type="platformCoreTyp:SearchDateFieldOperator"/>
+</complexType>
+<!--  CustomFieldList  -->
+<complexType name="SearchCustomFieldList">
+<sequence>
+<element name="customField" type="platformCore:SearchCustomField" minOccurs="0" maxOccurs="unbounded"/>
+</sequence>
+</complexType>
+<!--  CustomFieldRef  -->
+<complexType name="SearchCustomField" abstract="true">
+<attribute name="internalId" type="xsd:string"/>
+<attribute name="scriptId" type="xsd:string"/>
+</complexType>
+<complexType name="SearchColumnCustomFieldList">
+<sequence>
+<element name="customField" type="platformCore:SearchColumnCustomField" minOccurs="0" maxOccurs="unbounded"/>
+</sequence>
+</complexType>
+<!--  Search Column Custom Field Types  -->
+<!--
+ ******************************************************************** 
+-->
+<complexType name="SearchColumnCustomField" abstract="true">
+<sequence>
+<element name="customLabel" type="xsd:string" minOccurs="0"/>
+</sequence>
+<attribute name="internalId" type="xsd:string"/>
+<attribute name="scriptId" type="xsd:string"/>
+</complexType>
+<!--  SearchColumnSelectField  -->
+<complexType name="SearchColumnSelectField">
+<complexContent>
+<extension base="platformCore:SearchColumnField">
+<sequence>
+<element name="searchValue" type="platformCore:RecordRef" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<!--  SearchColumnDoubleField  -->
+<complexType name="SearchColumnField" abstract="true">
+<sequence>
+<element name="customLabel" type="xsd:string" minOccurs="0"/>
+</sequence>
+</complexType>
+<!--  SearchColumnStringField  -->
+<complexType name="SearchColumnStringField">
+<complexContent>
+<extension base="platformCore:SearchColumnField">
+<sequence>
+<element name="searchValue" type="xsd:string" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<!--  SearchColumnDoubleField  -->
+<complexType name="SearchColumnDoubleField">
+<complexContent>
+<extension base="platformCore:SearchColumnField">
+<sequence>
+<element name="searchValue" type="xsd:double" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<!--  SearchColumnEnumSelectField  -->
+<complexType name="SearchColumnEnumSelectField">
+<complexContent>
+<extension base="platformCore:SearchColumnField">
+<sequence>
+<element name="searchValue" type="xsd:string" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<!--  SearchColumnBooleanField  -->
+<complexType name="SearchColumnBooleanField">
+<complexContent>
+<extension base="platformCore:SearchColumnField">
+<sequence>
+<element name="searchValue" type="xsd:boolean" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<!--  SearchColumnLongField  -->
+<complexType name="SearchColumnLongField">
+<complexContent>
+<extension base="platformCore:SearchColumnField">
+<sequence>
+<element name="searchValue" type="xsd:long" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<!--  SearchColumnDateField  -->
+<complexType name="SearchColumnDateField">
+<complexContent>
+<extension base="platformCore:SearchColumnField">
+<sequence>
+<element name="searchValue" type="xsd:dateTime" minOccurs="0"/>
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+<complexType name="CustomizationRef">
+<complexContent>
+<extension base="platformCore:RecordRef">
+<attribute name="scriptId" type="xsd:string"/>
+</extension>
+</complexContent>
+</complexType>
+<complexType name="SearchRecord" abstract="true"/>
+<element name="searchRecord" type="platformCore:SearchRecord"/>
+<complexType name="SearchRecordBasic" abstract="true">
+<complexContent>
+<extension base="platformCore:SearchRecord"/>
+</complexContent>
+</complexType>
+<element name="searchRecordBasic" type="platformCore:SearchRecordBasic"/>
+<complexType name="SearchRow" abstract="true"/>
+<complexType name="SearchRowBasic" abstract="true">
+<complexContent>
+<extension base="platformCore:SearchRow"/>
+</complexContent>
+</complexType>
+<element name="searchRowBasic" type="platformCore:SearchRowBasic"/>
+<schema>
