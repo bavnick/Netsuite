@@ -6,7 +6,7 @@
 		xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 		targetNamespace="urn:messages_2018_2.platform.webservices.netsuite.com" 
 		elementFormDefault="qualified" attributeFormDefault="unqualified">
-<import namespace="urn:core_2018_2.platform.webservices.netsuite.com" schemaLocation="https://webservices.na0.netsuite.com/xsd/platform/v2018_2_0/core.xsd"/>
+<import namespace="urn:core_2018_2.platform.webservices.netsuite.com" schemaLocation="https://raw.githubusercontent.com/bavnick/Netsuite/master/core_X.xsd"/>
 <import namespace="urn:types.faults_2018_2.platform.webservices.netsuite.com" schemaLocation="https://webservices.na0.netsuite.com/xsd/platform/v2018_2_0/faultTypes.xsd"/>
 <complexType name="ApplicationInfo">
 <sequence>
