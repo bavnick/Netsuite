@@ -1,0 +1,41 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:platformMsgs="urn:messages_2018_2.platform.webservices.netsuite.com" 
+		xmlns:platformFaultTyp="urn:types.faults_2018_2.platform.webservices.netsuite.com" 
+		xmlns:platformCore="urn:core_2018_2.platform.webservices.netsuite.com" 
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+		targetNamespace="urn:messages_2018_2.platform.webservices.netsuite.com" 
+		elementFormDefault="qualified" attributeFormDefault="unqualified">
+<import namespace="urn:core_2018_2.platform.webservices.netsuite.com" schemaLocation="https://webservices.na0.netsuite.com/xsd/platform/v2018_2_0/core.xsd"/>
+<import namespace="urn:types.faults_2018_2.platform.webservices.netsuite.com" schemaLocation="https://webservices.na0.netsuite.com/xsd/platform/v2018_2_0/faultTypes.xsd"/>
+<complexType name="ApplicationInfo">
+<sequence>
+<element name="applicationId" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+</sequence>
+</complexType>
+<element name="applicationInfo" type="platformMsgs:ApplicationInfo"/>
+<complexType name="PartnerInfo">
+<sequence>
+<element name="partnerId" minOccurs="0" type="xsd:string"/>
+</sequence>
+</complexType>
+<element name="partnerInfo" type="platformMsgs:PartnerInfo"/>
+<complexType name="Preferences">
+<sequence>
+<element name="warningAsError" minOccurs="0" type="xsd:boolean"/>
+<element name="disableMandatoryCustomFieldValidation" minOccurs="0" type="xsd:boolean"/>
+<element name="disableSystemNotesForCustomFields" minOccurs="0" type="xsd:boolean"/>
+<element name="ignoreReadOnlyFields" minOccurs="0" type="xsd:boolean"/>
+<element name="runServerSuiteScriptAndTriggerWorkflows" minOccurs="0" type="xsd:boolean"/>
+</sequence>
+</complexType>
+<element name="preferences" type="platformMsgs:Preferences"/>
+<element name="passport" type="platformCore:Passport"/>
+<element name="tokenPassport" type="platformCore:TokenPassport"/>
+<complexType name="AddRequest">
+<sequence>
+<element name="record" type="platformCore:Record"/>
+</sequence>
+</complexType>
+<element name="add" type="platformMsgs:AddRequest"/>
+</schema>	
