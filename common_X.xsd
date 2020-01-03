@@ -1689,4 +1689,4 @@
 <element name="searchRowBasic" type="platformCore:SearchRowBasic"/>
 </sequence>
 </complexType>
-<schema>
+</schema>
