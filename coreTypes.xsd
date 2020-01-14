@@ -460,4 +460,14 @@
 <enumeration value="notLessThanOrEqualTo"/>
 </restriction>
 </simpleType>
+<simpleType name="AsyncStatusType">
+<restriction base="xsd:string">
+<enumeration value="failed"/>
+<enumeration value="finishedWithErrors"/>
+<enumeration value="pending"/>
+<enumeration value="processing"/>
+<enumeration value="finished"/>
+<enumeration value="retry"/>
+</restriction>
+</simpleType>
 </schema>
