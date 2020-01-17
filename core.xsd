@@ -70,10 +70,7 @@
 </extension>
 </complexContent>
 </complexType>
-<complexType name="SearchRecord" abstract="true">
-<complexContent>
-</complexContent>
-</complexType>
+<complexType name="SearchRecord" abstract="true"/>
 <complexType name="SearchBooleanField">
 <sequence>
 <element name="searchValue" type="xsd:boolean" minOccurs="0"/>
