@@ -1,0 +1,264 @@
+{
+    "type": "object",
+    "title": "SWIFT DATA CARD",
+    "description": "Swift TGA Integrator",
+    "definitions": {
+      "externalIds": {
+        "type": "object",
+        "title": "External IDs",
+        "properties": {
+          "SWIFT": {
+            "type": "string",
+            "title": "SWIFT",
+            "size": 80,
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "SWIFT"
+        ]
+      },
+      "NONE": {
+        "type": "object",
+        "title": "NONE"
+      },
+      "httpsPush": {
+        "type": "object",
+        "title": "httpsPush"
+      },
+      "preferredDelivery": {
+        "type": "object",
+        "title": "preferredDelivery",
+        "properties": {
+          "prefProtocol": {
+            "type": "string",
+            "&&##PreferredProtocolValue":""
+          },
+          "retryLimit": {
+            "type": "string",
+            "title": "RetryLimit",
+            "size": 40,
+            "minLength": 1,
+            "maxLength": 16
+          },
+          "timeToWait": {
+            "type": "string",
+            "title": "TimeToWait",
+            "size": 40,
+            "minLength": 1,
+            "maxLength": 16
+          },
+          "retryFactor": {
+            "type": "string",
+            "title": "RetryFactor",
+            "size": 40,
+            "default":1,
+            "minLength": 1,
+            "maxLength": 16
+          }
+        }, "required": [
+          "prefProtocol","retryLimit","timeToWait","retryFactor"
+        ]
+      },
+      "contactInfo": {
+        "type": "object",
+        "title": "Contact Information",
+        "properties": {
+          "lastName": {
+            "type": "string",
+            "title": "LastName",
+            "size": 80,
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "firstName": {
+            "type": "string",
+            "title": "FirstName",
+            "size": 80,
+            "minLength": 1,
+            "maxLength": 64
+          },
+        
+          "emailAddress": {
+            "type": "string",
+            "title": "E-mail Address",
+            "size": 80,
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "phone": {
+            "type": "string",
+            "title": "Phone",
+            "size": 80,
+            "minLength": 0,
+            "maxLength": 64
+          },
+          
+          "address": {
+            "type": "string",
+            "title": "Address",
+            "size": 80,
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "city": {
+            "type": "string",
+            "title": "City",
+            "size": 16,
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "state": {
+            "type": "string",
+            "title": "State",
+            "size": 16,
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "zip": {
+            "type": "string",
+            "title": "ZIP",
+            "size": 16,
+            "minLength": 0,
+            "maxLength": 64
+          },
+          "country": {
+            "type": "string",
+            "title": "Country",
+            "size": 40,
+            "minLength": 0,
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "lastName",
+          "firstName"
+        ]
+      },
+      "extendedFields": {
+        "type": "object",
+        "title": "Extended Field Groups",
+        "properties": {
+          "GXSCOM": {
+            "title": "GXSCOM",
+            "type": "object",
+            "properties": {
+              "EnableCSRRest": {
+                "type": "string",
+                "title": "EnableCSRRest",
+                "minLength": 0,
+                "maxLength": 16
+              }
+            },
+            "required": [
+              "EnableCSRRest"
+            ]
+          },
+          "GXSSWIFT": {
+            "title": "GXSSWIFT",
+            "type": "object",
+            "properties": {
+              "MT_Msg_Partner": {
+                "type": "string",
+                "title": "MT_Msg_Partner",
+                "minLength": 0,
+                "maxLength": 16
+              },
+              "MX_Msg_Partner": {
+                "type": "string",
+                "title": "MX_Msg_Partner",
+                "minLength": 0,
+                "maxLength": 16
+              },
+              "route_FANotice": {
+                "type": "string",
+                "title": "route_FANotice",
+               "minLength": 0,
+                "maxLength": 16
+              },
+              "useGenericProfile": {
+                "type": "string",
+                "title": "useGenericProfile",
+                "minLength": 0,
+                "maxLength": 5
+              },
+              "useGenericProfileInbound": {
+                "type": "string",
+                "title": "useGenericProfileInbound",
+                "minLength": 0,
+                "maxLength": 5
+              },
+              "InboundGenericSender": {
+                "type": "string",
+                "title": "InboundGenericSender",
+                "minLength": 0,
+                "maxLength": 24
+              }
+            }
+          }
+        },
+        "required": [
+          "GXSSWIFT",
+          "GXSCOM"
+        ]
+      },
+      "owner": {
+        "type": "object",
+        "title": "Owner",
+        "properties": {
+          "externalIds": {
+            "$ref": "#/definitions/externalIds"
+          },
+          "preferredDelivery": {
+            "$ref": "#/definitions/preferredDelivery"
+          },
+          "contactInfo": {
+            "$ref": "#/definitions/contactInfo"
+          },
+          "extendedFields": {
+            "$ref": "#/definitions/extendedFields"
+          }
+        },
+        "required": [
+          "externalIds",
+          "preferredDelivery",
+          "extendedFields","contactInfo"
+        ]
+      },
+      "partner": {
+        "type": "object",
+        "title": "Partner",
+        "properties": {
+          "externalIds": {
+            "$ref": "#/definitions/externalIds"
+          },
+          
+          "contactInfo": {
+            "$ref": "#/definitions/contactInfo"
+          },
+          "extendedFields": {
+            "$ref": "#/definitions/extendedFields"
+          }
+        },
+        "required": [
+          "externalIds",
+         
+          "extendedFields","contactInfo"
+        ]
+      }
+    },
+    "format": "tabs",
+    "properties": {
+      "owner": {
+        "$ref": "#/definitions/owner"
+      },
+      "partner": {
+        "$ref": "#/definitions/partner"
+      }
+    },
+    "required": [
+      "owner",
+      "partner"
+    ]
+  }
